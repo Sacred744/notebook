@@ -9,14 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using System.IO;
 
 namespace 记事本
 {
     public partial class Form2 : Form
     {
         
-        private List<String> TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
-        private JArray TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
+        private List<String> TabNames ;
+        private JArray TabData ;
         private Form InputForm = new Form();
         private string userInput;
         private TextBox textBox = new TextBox();
@@ -25,6 +26,7 @@ namespace 记事本
         {
             this.Icon = Properties.Resources.book;
             InitializeComponent();
+            InitData();
             InitListbox();
             InitInputForm();
         }
@@ -36,6 +38,11 @@ namespace 记事本
                 listBox1.Items.Add(name.ToString());
             }
 
+        }
+
+        private void InitData() {
+            TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
+            TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -110,6 +117,7 @@ namespace 记事本
             InputForm.FormClosing += (sender, e) =>
             {
                 textBox.Text = "";
+               
             };
 
             buttonCancel.Click += (sender, e) =>
@@ -175,14 +183,17 @@ namespace 记事本
                 if (!string.IsNullOrEmpty(userInput))
                 {
                     TabNames[listBox1.SelectedIndex] = userInput;
-                    InitListbox();
+                    
+
                 }
             }
             else {
 
                 MessageBox.Show("先选择需要修改的项");
             }
-            
+            InitListbox();
         }
+
+        
     }
 }
