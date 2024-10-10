@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="记事本.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TabNames" Type="System.String" Scope="User">
+      <Value Profile="(Default)">标签页1</Value>
+    </Setting>
+    <Setting Name="TabData" Type="System.String" Scope="User">
+      <Value Profile="(Default)">[{Data:""}]</Value>
+    </Setting>
+    <Setting Name="StartUp" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowTop" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
