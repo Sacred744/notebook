@@ -9,14 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using System.IO;
 
 namespace 记事本
 {
     public partial class Form2 : Form
     {
         
-        private List<String> TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
-        private JArray TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
+        private List<String> TabNames ;
+        private JArray TabData ;
         private Form InputForm = new Form();
         private string userInput;
         private TextBox textBox = new TextBox();
@@ -30,7 +31,9 @@ namespace 记事本
         }
         public void InitListbox()
         {
-            listBox1.Items.Clear();
+         TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
+        TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
+        listBox1.Items.Clear();
             foreach (String name in TabNames)
             {
                 listBox1.Items.Add(name.ToString());
@@ -184,5 +187,7 @@ namespace 记事本
             }
             
         }
+
+        
     }
 }

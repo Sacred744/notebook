@@ -11,7 +11,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
-
+using System.Configuration;
+using System.IO;
+using System.Xml;
 
 
 
@@ -21,18 +23,16 @@ namespace 记事本
     {
         private ContextMenuStrip contextMenuStrip;
 
-
-        private JArray TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
         //private JArray TabData = JArray.Parse("[{Data:\"1\"},{Data:\"2\"},{Data:\"3\"}]")
 
         //private List<String> TabNames = new List<string>{"1","2","3" };
-        private List<String> TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
+        private JArray TabData ;
+        private List<String> TabNames ;
+        private bool StartUpStates ;
+        private bool ShowTopStates ;
 
         private ToolStripMenuItem StartUpMenu;
         private ToolStripMenuItem ShowTopMenu;
-
-        private bool StartUpStates = (bool)Properties.Settings.Default["StartUp"];
-        private bool ShowTopStates = (bool)Properties.Settings.Default["ShowTop"];
         Form2 form2 = new Form2();
 
         public Form1()
@@ -44,7 +44,9 @@ namespace 记事本
             InitTab();
             InitTimer();
             InitMenu();
-            
+            InitConfig();
+
+
         }
 
         public void InitTimer() {
@@ -195,6 +197,7 @@ namespace 记事本
                 //MessageBox.Show("程序已取消开机自启。");
                 Properties.Settings.Default["StartUp"] = false;
                 Properties.Settings.Default.Save();
+                StartUpMenu.Checked = false;
             }
             else
             {
@@ -203,7 +206,10 @@ namespace 记事本
                 //MessageBox.Show("程序已设置为开机自启。");
                 Properties.Settings.Default["StartUp"] = true;
                 Properties.Settings.Default.Save();
+                StartUpMenu.Checked = true;
             }
+            
+
         }
         private void ShowTopMenu_Click(object sender, EventArgs e)
         {
@@ -258,6 +264,23 @@ namespace 记事本
             }
         }
 
-
+        private void InitConfig()
+        {
+            if (string.IsNullOrEmpty(Properties.Settings.Default["TabNames"].ToString()))
+            {
+                // 设置项尚未初始化，进行初始化操作
+                Properties.Settings.Default["TabName"] = "新标签";
+                Properties.Settings.Default["TabData"] = "[{Data:\"\"}]";
+                Properties.Settings.Default["StartUp"] = false;
+                Properties.Settings.Default["ShowTop"] = false;
+                // 保存更改
+                Properties.Settings.Default.Save();
+         TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
+         TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
+         StartUpStates = (bool)Properties.Settings.Default["StartUp"];
+         ShowTopStates = (bool)Properties.Settings.Default["ShowTop"];
+    }
+        }
     }
 }
+
