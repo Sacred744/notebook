@@ -30,9 +30,16 @@ namespace 记事本
             InitListbox();
             InitInputForm();
         }
+
+        public void InitData() {
+            TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
+            TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
+        }
+
         public void InitListbox()
         {
-            listBox1.Items.Clear();
+
+        listBox1.Items.Clear();
             foreach (String name in TabNames)
             {
                 listBox1.Items.Add(name.ToString());
@@ -40,10 +47,6 @@ namespace 记事本
 
         }
 
-        private void InitData() {
-            TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
-            TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
-        }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
@@ -183,8 +186,6 @@ namespace 记事本
                 if (!string.IsNullOrEmpty(userInput))
                 {
                     TabNames[listBox1.SelectedIndex] = userInput;
-                    
-
                 }
             }
             else {

@@ -46,8 +46,6 @@ namespace 记事本
             InitTab();
             InitTimer();
             InitMenu();
-            
-
         }
 
         public void InitTimer() {
@@ -55,8 +53,6 @@ namespace 记事本
             timer.Interval = 500;
             timer.Tick += SaveDataTimer;
             timer.Start();
-
-
         }
 
 
