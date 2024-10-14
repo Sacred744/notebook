@@ -24,15 +24,25 @@ namespace 记事本
         private Button button = new Button();
         public Form2()
         {
-            this.Icon = Properties.Resources.book;
             InitializeComponent();
+            this.Icon = Properties.Resources.book;
             InitData();
             InitListbox();
             InitInputForm();
+            
         }
+
+        
+
+        public void InitData() {
+            TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
+            TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
+        }
+
         public void InitListbox()
         {
-            listBox1.Items.Clear();
+
+        listBox1.Items.Clear();
             foreach (String name in TabNames)
             {
                 listBox1.Items.Add(name.ToString());
@@ -40,13 +50,10 @@ namespace 记事本
 
         }
 
-        private void InitData() {
-            TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
-            TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
-        }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
+            
             DialogResult result = MessageBox.Show("确定要执行删除操作吗？", "警告", MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
@@ -71,6 +78,7 @@ namespace 记事本
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
+            InitData();
             InputForm.ShowDialog();
             if (!string.IsNullOrEmpty(userInput)) {
                 TabNames.Add(userInput);
@@ -177,14 +185,13 @@ namespace 记事本
 
         private void buttonRename_Click(object sender, EventArgs e)
         {
+            InitData();
             if (TabNames[listBox1.SelectedIndex] != null)
             {
                 InputForm.ShowDialog();
                 if (!string.IsNullOrEmpty(userInput))
                 {
                     TabNames[listBox1.SelectedIndex] = userInput;
-                    
-
                 }
             }
             else {
@@ -194,6 +201,9 @@ namespace 记事本
             InitListbox();
         }
 
-        
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

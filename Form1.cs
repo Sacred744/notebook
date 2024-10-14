@@ -46,8 +46,6 @@ namespace 记事本
             InitTab();
             InitTimer();
             InitMenu();
-            
-
         }
 
         public void InitTimer() {
@@ -55,14 +53,14 @@ namespace 记事本
             timer.Interval = 500;
             timer.Tick += SaveDataTimer;
             timer.Start();
-
-
         }
 
 
         public void InitData() {
             TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
             TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
+            StartUpStates = (bool)Properties.Settings.Default["StartUp"];
+            ShowTopStates = (bool)Properties.Settings.Default["ShowTop"];
         }
 
         public void InitTab() {
@@ -180,6 +178,7 @@ namespace 记事本
             if (sender is Form2)
             {
                 // 调用 Form1 的 InitTab 方法
+                InitData();
                 InitTab();
                 ShowTop(ShowTopStates);
             }
