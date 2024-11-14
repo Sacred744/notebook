@@ -31,14 +31,6 @@ namespace 记事本
             InitInputForm();
             
         }
-
-        
-
-        public void InitData() {
-            TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
-            TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
-        }
-
         public void InitListbox()
         {
 
