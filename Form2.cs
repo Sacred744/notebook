@@ -22,6 +22,7 @@ namespace 记事本
         private string userInput;
         private TextBox textBox = new TextBox();
         private Button button = new Button();
+
         public Form2()
         {
             InitializeComponent();
@@ -31,6 +32,13 @@ namespace 记事本
             InitInputForm();
             
         }
+
+        public void InitData()
+        {
+            TabData = JArray.Parse(Properties.Settings.Default["TabData"].ToString());
+            TabNames = Properties.Settings.Default["TabNames"].ToString().Split(',').ToList();
+        }
+
         public void InitListbox()
         {
 
